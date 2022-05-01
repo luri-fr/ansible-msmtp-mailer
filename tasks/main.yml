@@ -64,6 +64,32 @@
     - mailx
   when: ansible_os_family == "Alpine"
 
+- name: Additional paquets on Debian.
+  apt:
+    name: "{{ msmtp_additional_paquets }}"
+    state: present
+  tags: mail
+  when: 
+    - ansible_os_family == "Debian"
+    - msmtp_additional_paquets | length > 0
+
+- name: Additional paquets on Archlinux.
+  pacman:
+    name: "{{ msmtp_additional_paquets }}"
+    state: present
+  when: 
+    - ansible_os_family == "Archlinux"
+    - msmtp_additional_paquets | length > 0
+
+- name: Additional paquets on Alpine.
+  apk:
+    name: "{{ msmtp_additional_paquets }}"
+    state: present
+    update_cache: no
+  when: 
+    - ansible_os_family == "Alpine"
+    - msmtp_additional_paquets | length > 0
+
 - name: Overwrite busybox sendmail link to point to mSMTP.
   file:
     src: /usr/bin/msmtp

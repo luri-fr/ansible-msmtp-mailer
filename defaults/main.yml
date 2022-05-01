@@ -52,3 +52,6 @@ msmtp_remove_mtas: no
 msmtprc_owner: root
 msmtprc_group: root
 msmtprc_mode: 0644
+
+## Additionnal paquetage you want to install
+msmtp_additional_paquets: []
