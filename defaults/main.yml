@@ -52,3 +52,10 @@ msmtp_remove_mtas: no
 msmtprc_owner: root
 msmtprc_group: root
 msmtprc_mode: 0644
+
+## set_from_header replace older auto_from configuration directive.
+# We set here to off for compatibility, but you're probably want set this to auto or on
+msmtp_default_set_from_header: "off"
+
+## Set allow_from_override in on to disable --form overide command (particulary, if you set set_from_header to on
+msmtp_default_allow_from_override: "on"

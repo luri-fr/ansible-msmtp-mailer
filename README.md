@@ -1,5 +1,11 @@
 [![Build Status](https://travis-ci.com/chriswayg/ansible-msmtp-mailer.svg?branch=master)](https://travis-ci.com/chriswayg/ansible-msmtp-mailer)
 
+#Luri's Modif
+They have some modification of initial rôle : 
+ - Support command set_from_header, allow_from_override and domain for each account
+ - Remove obsolete command auto_from off and replace this with set_from_header and allow_from_override command
+ - In each account, we not write empty command
+
 # ansible-msmtp-mailer
 
 This ansible role deploys msmtp as a mailer for Debian, Ubuntu, Arch & Alpine Linux

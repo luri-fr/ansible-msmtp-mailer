@@ -26,6 +26,19 @@ logfile  {{msmtp_logfile}}
 
 # default is localhost. Use domain part of your email address or FQDN of host.
 domain {{msmtp_domain}}
+# When to set a From header: ‘auto’ adds a From header if the mail does not have one,
+# ‘on\’ always sets a From header and overrides any existing one, 
+# and ‘off’ never sets a From header.
+# If the mail server rejects the mail because its From header does not match the envelope
+# from address (a common anti-spam measure), then you might want to set this option to ‘on’.
+# The From header is created based on the envelope-from address.
+# Disable allow_from_override to prevent programs from setting their own envelope-from address.
+set_from_header {{ msmtp_default_set_from_header }}
+
+# By default, the option --from option overrides the from command. Set to 'off' to disable this.
+allow_from_override {{msmtp_default_allow_from_override}}
+
+
 # default is off. When on, an envelope-from address of the form user@domain will be generated.
 auto_from off
 # The default is to remove BCC headers.
@@ -34,13 +47,37 @@ auto_from off
 {% if msmtp_accounts is defined %}
 {% for msmtp_account in msmtp_accounts %}
 #
+{% if msmtp_account.account is defined %}
 account  {{msmtp_account.account}}
+{% endif %}
+{% if msmtp_account.host is defined %}
 host     {{msmtp_account.host}}
+{% endif %}
+{% if msmtp_account.port is defined %}
 port     {{msmtp_account.port}}
+{% endif %}
+{% if msmtp_account.auth is defined %}
 auth     {{msmtp_account.auth}}
+{% endif %}
+{% if msmtp_account.from is defined %}
 from     {{msmtp_account.from}}
+{% endif %}
+{% if msmtp_account.user is defined %}
 user     {{msmtp_account.user}}
+{% endif %}
+{% if msmtp_account.password is defined %}
 password {{msmtp_account.password}}
+{% endif %}
+{% if msmtp_account.domain is defined %}
+domain   {{msmtp_account.domain}}
+{% endif %}
+{% if msmtp_account.allow_from_override is defined %}
+allow_from_override {{msmtp_account.allow_from_override}}
+{% endif %}
+{% if msmtp_account.set_from_header is defined %}
+set_from_header {{msmtp_account.set_from_header}}
+{% endif %}
+
 {% if msmtp_account.tls_starttls is defined %}
 tls_starttls {{msmtp_account.tls_starttls}}
 {% endif %}
